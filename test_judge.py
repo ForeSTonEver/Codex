@@ -1,132 +1,84 @@
 #!/usr/bin/env python3
 """
 채점 시스템 테스트 스크립트
-각 난이도별로 모범 풀이가 정확하게 채점되는지 확인합니다.
+두 문항의 모범 풀이가 정확하게 채점되는지 확인합니다.
 """
 
-import io
-import sys
 from judge import Judge
 
 
 def test_judge_system():
-    """채점 시스템 테스트"""
     judge = Judge()
-    
-    print("="*70)
+
+    print("=" * 70)
     print("【채점 시스템 테스트】")
-    print("="*70)
-    
-    # 하 (쉬움) 풀이 테스트
-    print("\n[하] 리스트에서 최댓값과 최솟값 찾기 테스트")
-    print("-"*70)
-    
-    easy_code = """
-n = int(input())
-numbers = list(map(int, input().split()))
+    print("=" * 70)
 
-max_val = numbers[0]
-min_val = numbers[0]
+    print("\n[문항 1] 세 과목 평균과 합격 판정 테스트")
+    print("-" * 70)
 
-for num in numbers:
-    if num > max_val:
-        max_val = num
-    if num < min_val:
-        min_val = num
+    problem1_code = """
+kor, eng, math = map(int, input().split())
 
-sum_val = max_val + min_val
+total = kor + eng + math
+average = total / 3
 
-print(max_val)
-print(min_val)
-print(sum_val)
+if average >= 60 and kor >= 40 and eng >= 40 and math >= 40:
+    result = "합격"
+else:
+    result = "불합격"
+
+print(total)
+print(f"{average:.1f}")
+print(result)
 """
-    
-    passed, message = judge.test_solution(easy_code, "하")
+
+    passed, message = judge.test_solution(problem1_code, "1")
     print(f"결과: {'✓ 통과' if passed else '✗ 실패'}")
     print(f"메시지: {message}\n")
-    
-    # 중 (중간) 풀이 테스트
-    print("[중] 학점 계산 및 성적 순위 테스트")
-    print("-"*70)
-    
-    medium_code = """
+
+    print("[문항 2] 점수 목록 분석과 등급 출력 테스트")
+    print("-" * 70)
+
+    problem2_code = """
 n = int(input())
-scores = []
+scores = list(map(int, input().split()))
 
-for i in range(n):
-    score = int(input())
-    scores.append(score)
-
+total = 0
+pass_count = 0
 grades = []
-count_a = 0
 
 for score in scores:
+    total += score
+
+    if score >= 60:
+        pass_count += 1
+
     if score >= 90:
-        grades.append('A')
-        count_a += 1
+        grades.append("A")
     elif score >= 80:
-        grades.append('B')
+        grades.append("B")
     elif score >= 70:
-        grades.append('C')
+        grades.append("C")
     elif score >= 60:
-        grades.append('D')
+        grades.append("D")
     else:
-        grades.append('F')
+        grades.append("F")
 
-average = sum(scores) / len(scores)
+average = total / n
 
-sorted_scores = sorted(scores, reverse=True)
-
-print(count_a)
 print(f"{average:.1f}")
-print(' '.join(map(str, sorted_scores)))
+print(pass_count)
+print(" ".join(grades))
 """
-    
-    passed, message = judge.test_solution(medium_code, "중")
+
+    passed, message = judge.test_solution(problem2_code, "2")
     print(f"결과: {'✓ 통과' if passed else '✗ 실패'}")
     print(f"메시지: {message}\n")
-    
-    # 상 (어려움) 풀이 테스트
-    print("[상] 소수 판별 및 필터링 테스트")
-    print("-"*70)
-    
-    hard_code = """
-def is_prime(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
 
-n = int(input())
-numbers = list(map(int, input().split()))
-
-primes = []
-is_prime_list = []
-
-for num in numbers:
-    if is_prime(num):
-        primes.append(num)
-        is_prime_list.append(True)
-    else:
-        is_prime_list.append(False)
-
-count = len(primes)
-sum_primes = sum(primes)
-
-print(count)
-print(sum_primes)
-print(' '.join(map(str, is_prime_list)))
-"""
-    
-    passed, message = judge.test_solution(hard_code, "상")
-    print(f"결과: {'✓ 통과' if passed else '✗ 실패'}")
-    print(f"메시지: {message}\n")
-    
-    print("="*70)
+    print("=" * 70)
     print("테스트 완료!")
-    print("="*70)
+    print("=" * 70)
 
 
 if __name__ == "__main__":

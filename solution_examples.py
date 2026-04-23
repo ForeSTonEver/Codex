@@ -2,138 +2,85 @@
 코딩 수행평가 - 모범 풀이 예시
 """
 
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("【모범 풀이 예시】")
-print("="*70)
+print("=" * 70)
 
-# ============ 하(쉬움) 문제 풀이 ============
-print("\n\n【하 (쉬움) 풀이 예시】")
-print("리스트에서 최댓값과 최솟값 찾기")
-print("-"*70)
+print("\n\n【문항 1 풀이 예시】")
+print("세 과목 평균과 합격 판정")
+print("-" * 70)
 
-easy_solution = """
-n = int(input())
-numbers = list(map(int, input().split()))
+problem1_solution = """
+kor, eng, math = map(int, input().split())
 
-max_val = numbers[0]
-min_val = numbers[0]
+total = kor + eng + math
+average = total / 3
 
-for num in numbers:
-    if num > max_val:
-        max_val = num
-    if num < min_val:
-        min_val = num
+if average >= 60 and kor >= 40 and eng >= 40 and math >= 40:
+    result = "합격"
+else:
+    result = "불합격"
 
-sum_val = max_val + min_val
-
-print(max_val)
-print(min_val)
-print(sum_val)
+print(total)
+print(f"{average:.1f}")
+print(result)
 """
 
 print("풀이 코드:")
-print(easy_solution)
+print(problem1_solution)
 
-# ============ 중(중간) 문제 풀이 ============
-print("\n\n【중 (중간) 풀이 예시】")
-print("학점 계산 및 성적 순위")
-print("-"*70)
+print("\n\n【문항 2 풀이 예시】")
+print("점수 목록 분석과 등급 출력")
+print("-" * 70)
 
-medium_solution = """
+problem2_solution = """
 n = int(input())
-scores = []
+scores = list(map(int, input().split()))
 
-for i in range(n):
-    score = int(input())
-    scores.append(score)
-
+total = 0
+pass_count = 0
 grades = []
-count_a = 0
 
 for score in scores:
+    total += score
+
+    if score >= 60:
+        pass_count += 1
+
     if score >= 90:
-        grades.append('A')
-        count_a += 1
+        grades.append("A")
     elif score >= 80:
-        grades.append('B')
+        grades.append("B")
     elif score >= 70:
-        grades.append('C')
+        grades.append("C")
     elif score >= 60:
-        grades.append('D')
+        grades.append("D")
     else:
-        grades.append('F')
+        grades.append("F")
 
-average = sum(scores) / len(scores)
+average = total / n
 
-sorted_scores = sorted(scores, reverse=True)
-
-print(count_a)
 print(f"{average:.1f}")
-print(' '.join(map(str, sorted_scores)))
+print(pass_count)
+print(" ".join(grades))
 """
 
 print("풀이 코드:")
-print(medium_solution)
+print(problem2_solution)
 
-# ============ 상(어려움) 문제 풀이 ============
-print("\n\n【상 (어려움) 풀이 예시】")
-print("소수 판별 및 필터링")
-print("-"*70)
-
-hard_solution = """
-def is_prime(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-n = int(input())
-numbers = list(map(int, input().split()))
-
-primes = []
-is_prime_list = []
-
-for num in numbers:
-    if is_prime(num):
-        primes.append(num)
-        is_prime_list.append(True)
-    else:
-        is_prime_list.append(False)
-
-count = len(primes)
-sum_primes = sum(primes)
-
-print(count)
-print(sum_primes)
-print(' '.join(map(str, is_prime_list)))
-"""
-
-print("풀이 코드:")
-print(hard_solution)
-
-print("\n" + "="*70)
+print("\n" + "=" * 70)
 print("주요 학습 포인트:")
-print("="*70)
+print("=" * 70)
 print("""
-【하 (쉬움)】
-- 리스트 선언 및 초기화
-- for 루프를 이용한 리스트 순회
-- if 조건문을 이용한 값 비교
-- 변수에 값 저장 및 계산
+【문항 1】
+- 여러 값을 변수에 나누어 저장하기
+- 산술 연산으로 총점과 평균 구하기
+- 단일 조건식으로 합격 여부 판정하기
+- 출력 형식을 정확하게 맞추기
 
-【중 (중간)】
-- 여러 변수를 리스트에 저장
-- if/elif/else를 이용한 다중 조건 판정
-- for 루프 내에서 조건 처리
-- 내장 함수 활용 (sum, sorted, join)
-- 실수 데이터타입 및 소수점 포매팅
-
-【상 (어려움)】
-- 함수 정의 및 호출
-- 중첩 반복문 (소수 판별 알고리즘)
-- 소수 판별 로직 구현
-- Boolean 자료형 활용
-- 복합적인 리스트 조작
+【문항 2】
+- 입력값을 리스트에 저장하기
+- 반복문 안에서 조건문으로 등급 판정하기
+- 누적 합과 개수 세기
+- 리스트 결과를 공백으로 연결하여 출력하기
 """)
